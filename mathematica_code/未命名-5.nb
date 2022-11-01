@@ -1,0 +1,264 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 12.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      8936,        254]
+NotebookOptionsPosition[      7727,        225]
+NotebookOutlinePosition[      8113,        242]
+CellTagsIndexPosition[      8070,        239]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData["\[IndentingNewLine]"], "Input",
+ CellChangeTimes->{{3.8741256240646057`*^9, 3.8741258086145496`*^9}, 
+   3.8741258399303885`*^9, {3.874125902029662*^9, 3.8741259053314095`*^9}, {
+   3.8741260584702187`*^9, 3.874126059390008*^9}, {3.874126191923588*^9, 
+   3.8741261993892384`*^9}, 
+   3.8741263937893944`*^9},ExpressionUUID->"2bee9848-093d-42c1-8cf8-\
+3051a5d4d85f"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Solve","elemc",
+   "\"Unable to resolve the domain or region membership condition \
+\\!\\(\\*RowBox[{\\\"p\\\", \\\"\[Element]\\\", RowBox[{\\\"Cylinder\\\", \
+\\\"[\\\", RowBox[{RowBox[{\\\"{\\\", RowBox[{RowBox[{\\\"{\\\", \
+RowBox[{\\\"0\\\", \\\",\\\", \\\"0\\\", \\\",\\\", \\\"0\\\"}], \\\"}\\\"}], \
+\\\",\\\", RowBox[{\\\"{\\\", \\\"0\\\", \\\"}\\\"}]}], \\\"}\\\"}], \
+\\\",\\\", \\\"1\\\"}], \\\"]\\\"}]}]\\).\"",2,76,57,27520039110425381526,
+   "Local"},
+  "MessageTemplate"]], "Message", "MSG",
+ CellChangeTimes->{3.8741258094509373`*^9, 3.874125851146585*^9, 
+  3.874125907558292*^9, 3.874126048909897*^9, 3.874126140735632*^9, 
+  3.8741263226174717`*^9},
+ CellLabel->
+  "\:6b63\:5728\:8ba1\:7b97In[74]:=",ExpressionUUID->"a9e972de-c780-4115-8d26-\
+198ab9797e12"],
+
+Cell[BoxData[
+ RowBox[{"Solve", "[", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"p", "\[Element]", 
+     RowBox[{"FullRegion", "[", "1", "]"}]}], "&&", 
+    RowBox[{"p", "\[Element]", 
+     RowBox[{"Cylinder", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"0", ",", "0", ",", "0"}], "}"}], ",", 
+         RowBox[{"{", "0", "}"}]}], "}"}], ",", "1"}], "]"}]}]}], ",", "p"}], 
+  "]"}]], "Output",
+ CellChangeTimes->{3.874126048931797*^9, 3.874126140755001*^9, 
+  3.8741263226316395`*^9},
+ CellLabel->"Out[76]=",ExpressionUUID->"6c0b46d3-9527-4a23-b11e-50b0017c0185"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{
+  3.874125994650668*^9, {3.874126042366909*^9, 
+   3.8741260461102753`*^9}},ExpressionUUID->"816c99b4-6cb9-4019-a987-\
+c1f4adec54c1"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Solve","elemc",
+   "\"Unable to resolve the domain or region membership condition \
+\\!\\(\\*RowBox[{\\\"p\\\", \\\"\[Element]\\\", RowBox[{\\\"Cylinder\\\", \
+\\\"[\\\", RowBox[{RowBox[{\\\"{\\\", RowBox[{RowBox[{\\\"{\\\", \
+RowBox[{\\\"0\\\", \\\",\\\", \\\"0\\\", \\\",\\\", \\\"0\\\"}], \\\"}\\\"}], \
+\\\",\\\", RowBox[{\\\"{\\\", \\\"0\\\", \\\"}\\\"}]}], \\\"}\\\"}], \
+\\\",\\\", FractionBox[\\\"1\\\", \\\"2\\\"]}], \\\"]\\\"}]}]\\).\"",2,55,49,
+   27520039110425381526,"Local"},
+  "MessageTemplate"]], "Message", "MSG",
+ CellChangeTimes->{3.874125994754406*^9},
+ CellLabel->
+  "\:6b63\:5728\:8ba1\:7b97In[55]:=",ExpressionUUID->"2d9ba9b0-6a30-48b7-81a9-\
+2419a90aa496"]
+}, Open  ]],
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.8741260399055505`*^9, 
+  3.8741260399254837`*^9}},ExpressionUUID->"495e83eb-1610-43c3-b08d-\
+2cc4a8afab0a"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"cyl", "=", 
+   RowBox[{"Cylinder", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"1", ",", "0", ",", 
+         RowBox[{"-", "1"}]}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"1", ",", "1", ",", "1"}], "}"}]}], "}"}], ",", "1"}], 
+    "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"line", "=", 
+   RowBox[{"InfiniteLine", "[", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"0", ",", "0", ",", "0"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"1", ",", "0", ",", "0"}], "}"}]}], "}"}], "]"}]}], 
+  ";"}], "\n", 
+ RowBox[{
+  RowBox[{"pts", "=", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"x", ",", "y", ",", "z"}], "}"}], "/.", 
+    RowBox[{"Solve", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"x", ",", "y", ",", "z"}], "}"}], "\[Element]", 
+       RowBox[{"RegionIntersection", "[", 
+        RowBox[{"line", ",", 
+         RowBox[{"RegionBoundary", "[", "cyl", "]"}]}], "]"}]}], ",", 
+      RowBox[{"{", 
+       RowBox[{"x", ",", "y", ",", "z"}], "}"}]}], "]"}]}]}], 
+  "\[IndentingNewLine]", "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"-", "1"}], ",", "0", ",", "0"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"1", ",", "0", ",", "0"}], "}"}]}], "}"}], "*)"}], 
+  "\n"}], "\[IndentingNewLine]", 
+ RowBox[{"Graphics3D", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"Opacity", "[", "0.25", "]"}], ",", "cyl"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"Thick", ",", "Red", ",", "line"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"Black", ",", 
+       RowBox[{"AbsolutePointSize", "[", "6", "]"}], ",", 
+       RowBox[{"Point", "[", "pts", "]"}]}], "}"}]}], "}"}], ",", 
+   RowBox[{"PlotRange", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"-", "2"}], ",", "2"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"-", "2"}], ",", "2"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"-", "2"}], ",", "2"}], "}"}]}], "}"}]}]}], "]"}]}], "Input",
+ CellChangeTimes->{{3.874125948847357*^9, 3.874125956869239*^9}, 
+   3.874125991377733*^9, {3.874126092145263*^9, 3.8741261091588025`*^9}, {
+   3.8741263824854927`*^9, 3.874126408484466*^9}, {3.8741264413318644`*^9, 
+   3.874126457409881*^9}},
+ CellLabel->"In[89]:=",ExpressionUUID->"5cd20d54-03ea-41a4-9b37-ac5a3bc29cb2"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{
+      FractionBox["1", "5"], " ", 
+      RowBox[{"(", 
+       RowBox[{"5", "-", 
+        RowBox[{"2", " ", 
+         SqrtBox["5"]}]}], ")"}]}], ",", "0", ",", "0"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{
+      FractionBox["1", "5"], " ", 
+      RowBox[{"(", 
+       RowBox[{"5", "+", 
+        RowBox[{"2", " ", 
+         SqrtBox["5"]}]}], ")"}]}], ",", "0", ",", "0"}], "}"}]}], 
+  "}"}]], "Output",
+ CellChangeTimes->{{3.874126384370017*^9, 3.874126409276944*^9}, {
+  3.874126451159794*^9, 3.8741264579564915`*^9}},
+ CellLabel->"Out[91]=",ExpressionUUID->"41bbfd6f-d327-478b-a318-ea2779972147"],
+
+Cell[BoxData[
+ Graphics3DBox[{
+   {Opacity[0.25], CylinderBox[{{1, 0, -1}, {1, 1, 1}}, 1]}, 
+   {RGBColor[1, 0, 0], Thickness[Large], 
+    TagBox[ConicHullRegion3DBox[{{0, 0, 0}, {1, 0, 0}}],
+     "InfiniteLine"]}, 
+   {GrayLevel[0], AbsolutePointSize[6], 
+    Point3DBox[
+     NCache[{{Rational[1, 5] (5 - 2 5^Rational[1, 2]), 0, 0}, {
+       Rational[1, 5] (5 + 2 5^Rational[1, 2]), 0, 0}}, {{
+       0.10557280900008409`, 0, 0}, {1.894427190999916, 0, 0}}]]}},
+  ImageSize->{355.42307371455587`, 374.8080022944277},
+  ImageSizeRaw->Automatic,
+  PlotRange->{{-2, 2}, {-2, 2}, {-2, 2}},
+  ViewPoint->{0.9820481572527588, -1.1075359520411598`, 3.0428515461278653`},
+  ViewVertical->{-0.46066181742493717`, 0.17589160219440148`, 
+   0.8699728928215179}]], "Output",
+ CellChangeTimes->{{3.874126384370017*^9, 3.874126409276944*^9}, {
+  3.874126451159794*^9, 3.874126458019411*^9}},
+ CellLabel->"Out[92]=",ExpressionUUID->"61463d9c-aa99-41c8-9795-0eedd9b946ec"]
+}, Open  ]]
+},
+WindowSize->{1920, 966},
+WindowMargins->{{-9, Automatic}, {Automatic, -9}},
+Magnification:>1.6 Inherited,
+FrontEndVersion->"12.0 for Microsoft Windows (64-bit) (2019\:5e744\:67088\
+\:65e5)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 380, 6, 76, "Input",ExpressionUUID->"2bee9848-093d-42c1-8cf8-3051a5d4d85f"],
+Cell[963, 30, 808, 16, 36, "Message",ExpressionUUID->"a9e972de-c780-4115-8d26-198ab9797e12"],
+Cell[1774, 48, 611, 17, 51, "Output",ExpressionUUID->"6c0b46d3-9527-4a23-b11e-50b0017c0185"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[2422, 70, 180, 4, 45, InheritFromParent,ExpressionUUID->"816c99b4-6cb9-4019-a987-c1f4adec54c1"],
+Cell[2605, 76, 712, 14, 59, "Message",ExpressionUUID->"2d9ba9b0-6a30-48b7-81a9-2419a90aa496"]
+}, Open  ]],
+Cell[3332, 93, 156, 3, 45, InheritFromParent,ExpressionUUID->"495e83eb-1610-43c3-b08d-2cc4a8afab0a"],
+Cell[CellGroupData[{
+Cell[3513, 100, 2536, 77, 335, "Input",ExpressionUUID->"5cd20d54-03ea-41a4-9b37-ac5a3bc29cb2"],
+Cell[6052, 179, 698, 22, 71, "Output",ExpressionUUID->"41bbfd6f-d327-478b-a318-ea2779972147"],
+Cell[6753, 203, 958, 19, 627, "Output",ExpressionUUID->"61463d9c-aa99-41c8-9795-0eedd9b946ec"]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
+
