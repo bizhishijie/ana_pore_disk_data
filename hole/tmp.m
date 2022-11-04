@@ -18,12 +18,9 @@ for jj=1:size(Rc,2)
     catch
         continue
     end
-    defaultFaceColor  = [0.6875 0.8750 0.8984];
-    trisurf(K, cylinder_point(:,1),cylinder_point(:,2),cylinder_point(:,3) , ...
-        'FaceColor', defaultFaceColor, 'FaceAlpha',0.8)
-    hold on
-    disp(jj)
+    %     defaultFaceColor  = [0.6875 0.8750 0.8984];
+    %     trisurf(K, cylinder_point(:,1),cylinder_point(:,2),cylinder_point(:,3) , ...
+    %         'FaceColor', defaultFaceColor, 'FaceAlpha',0.8)
+    %     hold on
+    %     disp(jj)
 end
-show_cylinder(Rc,Ori)
-axis([0 500 0 500 0 500])
-saveas(gcf,'test.jpg')

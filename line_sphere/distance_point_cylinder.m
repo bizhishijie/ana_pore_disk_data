@@ -25,9 +25,9 @@ case_1=RP_z_length>h/2&RP_r_length>r;
 case_2=RP_z_length>h/2&RP_r_length<r;
 case_3=RP_z_length<h/2&RP_r_length>r;
 
-dis(:,case_1)=[sqrt((RP_z_length(case_1)-h/2).^2+(RP_r_length(case_1)-r).^2);zeros(1,sum(case_1))+1];
-dis(:,case_2)=[RP_z_length(case_2)-h/2;zeros(1,sum(case_2))+2];
-dis(:,case_3)=[RP_r_length(case_3)-r;zeros(1,sum(case_3))+3];
+dis(:,case_1)=[sqrt((RP_z_length(case_1)-h/2).^2+(RP_r_length(case_1)-r).^2);ones(1,sum(case_1))*1];
+dis(:,case_2)=[RP_z_length(case_2)-h/2;ones(1,sum(case_2))*2];
+dis(:,case_3)=[RP_r_length(case_3)-r;ones(1,sum(case_3))*3];
 
 % dis=(sqrt((RP_z_length-h/2).^2+(RP_r_length-r).^2)).*(RP_z_length>h/2&RP_r_length>r)+...
 %     (RP_z_length-h/2).*(RP_z_length>h/2&RP_r_length<r)+...

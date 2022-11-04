@@ -25,7 +25,7 @@ for ii=1:length(fileList)
         end
         rc_tmp_list=[distance_point_cylinder(sphere_Rc,Rc,Ori,cylinder_size);Rc;Ori];
         rc_tmp_list=sortrows(rc_tmp_list')';
-        rc_list=[rc_list [rc_tmp_list(1:2,1)]];
+        rc_list=[rc_list rc_tmp_list(1:2,1)];% 取最近的接触点的
 
 %         Rc_tmp=rc_tmp_list(3:5,1:20);
 %         Ori_tmp=rc_tmp_list(6:8,1:20);
