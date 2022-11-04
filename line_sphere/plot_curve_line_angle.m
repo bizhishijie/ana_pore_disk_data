@@ -1,7 +1,6 @@
-
 clear
 fileList=dir('..\basic\pack\pack*');
-load('pack_num_category.mat');
+load('../basic/pack_num_category.mat');
 angle_num=150;
 angle_list=linspace(0,1,angle_num);
 for ii=1:length(pack_num_category)

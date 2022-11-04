@@ -1,7 +1,7 @@
 % 读取圆盘位置
 clear
 fileList=dir('..\basic\pack\pack*');
-load('pack_num_category.mat');
+load('../basic/pack_num_category.mat');
 d=30.75*2;
 h=4.81*2;
 r=d/2;
@@ -58,6 +58,7 @@ legend('1','2','3','4')
 title('角')
 box on
 saveas(gcf,'..\fig\rc_pack_角.jpg')
+saveas(gcf,'..\fig\rc_pack_角.fig')
 
 figure(2)
 set(gca,'yScale','log')
@@ -66,6 +67,7 @@ legend('1','2','3','4')
 title('底')
 box on
 saveas(gcf,'..\fig\rc_pack_底.jpg')
+saveas(gcf,'..\fig\rc_pack_底.fig')
 
 figure(3)
 set(gca,'yScale','log')
@@ -74,6 +76,7 @@ legend('1','2','3','4')
 title('面')
 box on
 saveas(gcf,'..\fig\rc_pack_面.jpg')
+saveas(gcf,'..\fig\rc_pack_面.fig')
 
 figure(4)
 set(gca,'yScale','log')
@@ -82,3 +85,4 @@ legend('1','2','3','4')
 title('总')
 box on
 saveas(gcf,'..\fig\rc_pack_总.jpg')
+saveas(gcf,'..\fig\rc_pack_总.fig')
