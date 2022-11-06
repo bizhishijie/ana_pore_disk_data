@@ -33,10 +33,10 @@ for ii=1:length(fileList)
         cylinder_point=vertice(id_uni,:);
         % 找到对应的点的编号
         K = convhull(cylinder_point);
-        defaultFaceColor  = [0.6875 0.8750 0.8984];
-%         trisurf(K, cylinder_point(:,1),cylinder_point(:,2),cylinder_point(:,3) , ...
-%             'FaceColor', defaultFaceColor, 'FaceAlpha',0.8)
-%         hold on
-%         show_cylinder(Rc(:,jj),Ori(:,jj))
+        %         defaultFaceColor = [0.6875 0.8750 0.8984];
+        %         trisurf(K, cylinder_point(:,1),cylinder_point(:,2),cylinder_point(:,3) , ...
+        %             'FaceColor', defaultFaceColor, 'FaceAlpha',0.8)
+        %         hold on
+        %         show_cylinder(Rc(:,jj),Ori(:,jj))
     end
 end

@@ -1,4 +1,4 @@
-% 读取圆盘位置
+% 读取圆盘位置，并将盘子上的采样点逐个划分格子，调用了plate_to_voronoi
 clear
 fileList=dir('..\basic\pack\pack*');
 load('tri.mat')
