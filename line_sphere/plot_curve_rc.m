@@ -32,24 +32,25 @@ for ii=1:length(pack_num_category)
         %         plot(centers_2,counts_2,'g')
         %         plot(centers_3,counts_3,'b')
         %         plot(centers_a,counts_a,'k')
-        
+
         counts_1_list(:,jj)=counts_1;
         counts_2_list(:,jj)=counts_2;
         counts_3_list(:,jj)=counts_3;
         counts_a_list(:,jj)=counts_a;
+        disp(mean(rc_list(1,:)))
     end
     figure(1)
     hold on
-    plot(hist_centre,mean(counts_1_list,2));
+    plot(hist_centre.^2,mean(counts_1_list,2));
     figure(2)
     hold on
-    plot(hist_centre,mean(counts_2_list,2));
+    plot(hist_centre.^2,mean(counts_2_list,2));
     figure(3)
     hold on
-    plot(hist_centre,mean(counts_3_list,2));
+    plot(hist_centre.^2,mean(counts_3_list,2));
     figure(4)
     hold on
-    plot(hist_centre,mean(counts_a_list,2));
+    plot(hist_centre.^2,mean(counts_a_list,2));
 end
 figure(1)
 set(gca,'yScale','log')

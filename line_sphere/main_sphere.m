@@ -3,43 +3,46 @@ clear
 fileList=dir('..\basic\pack\pack*');
 d=30.75*2;
 h=4.81*2;
-r=d/2;
-cylinder_size=[r,h];
+r=d/2*1.1;% 由于测量不准，需要使圆柱厚一点
+cylinder_size=[r,h];%
 
 for ii=1:length(fileList)
-    rc_list=[];
+    rc_list=zeros(2,1e4);
     load(['..\basic\pack\' fileList(ii).name '\basic.mat'])
     disp(fileList(ii).name)
 
     Rc_max=max(Rc,[],2)-r;
     Rc_min=min(Rc,[],2)+r;
 
+    Rc_max_sphere=max(Rc,[],2)-4*r;
+    Rc_min_sphere=min(Rc,[],2)+4*r;
+
     Rc_outside=find(any((Rc>Rc_max)|(Rc<Rc_min)));
     Rc(:,Rc_outside)=[];
     Ori(:,Rc_outside)=[];% 去除比较靠外的圆盘
     % 取的小球不太靠边
-    for sphere_id=1:1e4
-        sphere_Rc=rand(3,1).*(Rc_max-Rc_min)+Rc_min;
+    parfor sphere_id=1:1e7
+        sphere_Rc=rand(3,1).*(Rc_max_sphere-Rc_min_sphere)+Rc_min_sphere;
         while is_point_in_cylinder(sphere_Rc,Rc,Ori,cylinder_size)
-            sphere_Rc=rand(3,1).*(Rc_max-Rc_min)+Rc_min;
+            sphere_Rc=rand(3,1).*(Rc_max_sphere-Rc_min_sphere)+Rc_min_sphere;
         end
         rc_tmp_list=[distance_point_cylinder(sphere_Rc,Rc,Ori,cylinder_size);Rc;Ori];
         rc_tmp_list=sortrows(rc_tmp_list')';
-        rc_list=[rc_list rc_tmp_list(1:2,1)];% 取最近的接触点的
+        rc_list(:,sphere_id)=rc_tmp_list(1:2,1);% 取最近的接触点的
 
-%         Rc_tmp=rc_tmp_list(3:5,1:20);
-%         Ori_tmp=rc_tmp_list(6:8,1:20);
-%         show_cylinder(Rc_tmp,Ori_tmp);
-%         [X,Y,Z] =sphere(20);
-%         X=X*rc_tmp_list(1)+sphere_Rc(1);
-%         Y=Y*rc_tmp_list(1)+sphere_Rc(2);
-%         Z=Z*rc_tmp_list(1)+sphere_Rc(3);
-%         surf(X,Y,Z)
-%         axis equal
+        %         Rc_tmp=rc_tmp_list(3:5,1:20);
+        %         Ori_tmp=rc_tmp_list(6:8,1:20);
+        %         show_cylinder(Rc_tmp,Ori_tmp);
+        %         [X,Y,Z] =sphere(20);
+        %         X=X*rc_tmp_list(1)+sphere_Rc(1);
+        %         Y=Y*rc_tmp_list(1)+sphere_Rc(2);
+        %         Z=Z*rc_tmp_list(1)+sphere_Rc(3);
+        %         surf(X,Y,Z)
+        %         axis equal
     end
     save(['..\basic\pack\' fileList(ii).name '\rc_list.mat'],'rc_list')
 end
-histogram(rc_list(1,:));
+% histogram(rc_list(1,:));
 % hold on
 % rc_list_1=rc_list(:,rc_list(2,:)==1);
 % rc_list_2=rc_list(:,rc_list(2,:)==2);

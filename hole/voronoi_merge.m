@@ -7,7 +7,7 @@ cylinder_size=[r,h];
 fileList=dir('..\basic\pack\pack*');
 load('tri.mat')
 p_length=size(p,2);
-parfor ii=1:length(fileList)
+parfor ii=7:length(fileList)
     Rc=load(['..\basic\pack\' fileList(ii).name '\basic.mat'],'Rc').Rc;
     Ori=load(['..\basic\pack\' fileList(ii).name '\basic.mat'],'Ori').Ori;
     disp(fileList(ii).name)
@@ -55,6 +55,6 @@ parfor ii=1:length(fileList)
         dt_cell{jj}=dt_tmp;
         volume_list(jj)=volume;
     end
-    parsave(['..\basic\pack\' fileList(ii).name '\voronoi_cut_dt.mat'], dt_cell);
+    parsave(['..\basic\pack\' fileList(ii).name '\voronoi_cut_dt.mat'],dt_cell);
     parsave(['..\basic\pack\' fileList(ii).name '\voronoi_volume.mat'],volume_list);
 end
