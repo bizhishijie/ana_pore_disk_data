@@ -2,14 +2,14 @@
 clear
 fileList=dir('..\basic\pack\pack*');
 load('../basic/pack_num_category.mat');
-d=30.75*2;
-h=4.81*2;
-r=d/2;
-cylinder_size=[r,h];
+% d=30.75*2;
+% h=4.81*2;
+% r=d/2;
+% cylinder_size=[r,h];
 
 clf
-hist_num=50;
-hist_centre=linspace(0,100,hist_num);
+hist_num=30;
+hist_centre=linspace(0,70,hist_num);
 for ii=1:length(pack_num_category)
     pack_num_category_tmp=pack_num_category{ii};
     %     clf
@@ -37,20 +37,23 @@ for ii=1:length(pack_num_category)
         counts_2_list(:,jj)=counts_2;
         counts_3_list(:,jj)=counts_3;
         counts_a_list(:,jj)=counts_a;
-        disp(mean(rc_list(1,:)))
     end
     figure(1)
     hold on
-    plot(hist_centre.^2,mean(counts_1_list,2));
+    %     plot(hist_centre.^2,mean(counts_1_list,2));
+    plot(hist_centre,mean(counts_1_list,2));
     figure(2)
     hold on
-    plot(hist_centre.^2,mean(counts_2_list,2));
+    %     plot(hist_centre.^2,mean(counts_2_list,2));
+    plot(hist_centre,mean(counts_2_list,2));
     figure(3)
     hold on
-    plot(hist_centre.^2,mean(counts_3_list,2));
+    %     plot(hist_centre.^2,mean(counts_3_list,2));
+    plot(hist_centre,mean(counts_3_list,2));
     figure(4)
     hold on
-    plot(hist_centre.^2,mean(counts_a_list,2));
+    %     plot(hist_centre.^2,mean(counts_a_list,2));
+    plot(hist_centre,mean(counts_a_list,2));
 end
 figure(1)
 set(gca,'yScale','log')

@@ -1,6 +1,7 @@
+% 检测圆盘和直线的交点的计算是否正确
 % 读取圆盘位置
 clf
-load('G:\毕个业\basic\pack\pack6\basic.mat')
+load('..\basic\pack\pack6\basic.mat')
 
 d=30.75*2;
 h=4.81*2;

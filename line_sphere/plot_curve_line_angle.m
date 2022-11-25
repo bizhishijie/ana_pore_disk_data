@@ -9,7 +9,8 @@ for ii=1:length(pack_num_category)
     %     figure(ii)
     hist_angle=zeros(length(pack_num_category_tmp),angle_num);
     for jj=1:length(pack_num_category_tmp)
-        load(['..\basic\pack\pack' num2str(pack_num_category_tmp(jj)) '\length.mat'],'length_list','line_forward_list')
+        length_list=load(['..\basic\pack\pack' num2str(pack_num_category_tmp(jj)) '\length.mat'],'length_list').length_list;
+        line_forward_list=load(['..\basic\pack\pack' num2str(pack_num_category_tmp(jj)) '\length.mat'],'line_forward_list').line_forward_list;
         for kk =1:length(angle_list)
             tmp=length_list.*(abs(line_forward_list(3,:))>=(angle_list(kk)-1/2/angle_num)& ...
                 abs(line_forward_list(3,:))<(angle_list(kk)+1/2/angle_num));

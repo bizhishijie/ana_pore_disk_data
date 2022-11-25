@@ -18,7 +18,7 @@ flag_2_1=sqrt(norm(cross_p_2_1-cylinder_Rc)^2-(h/2)^2)>r;
 flag_2_2=sqrt(norm(cross_p_2_2-cylinder_Rc)^2-(h/2)^2)>r;
 % 如果交点超出了圆柱的范围认为无效
 
-% 取四个交点中间的两个，此距离即为直线和圆柱相交的线段的长度
+% 取四个交点中的两个，此距离即为直线和圆柱相交的线段的长度
 cross_p=[];
 if ~flag_1_1
     cross_p=[cross_p cross_p_1_1];

@@ -35,7 +35,7 @@ function [p,t]=distmeshsurface(fd,fh,h0,bbox,varargin)
 %   Copyright (C) 2004-2012 Per-Olof Persson. See COPYRIGHT.TXT for details.
 
 % dptol=1e-4*min(min(abs(bbox)));% 这个数字可以修改
-dptol=0.0024;
+dptol=0.015;
 ttol=.1; Fscale=1.2; deltat=.2; deps=sqrt(eps)*h0;
 
 % 1. Create initial distribution in bounding box (isosurface from grid)
@@ -85,5 +85,6 @@ while 1
     p=p-[d.*dgradx./dgrad2,d.*dgrady./dgrad2,d.*dgradz./dgrad2];  % Project back to boundary
 
     % 8. Termination criterion: All nodes move less than dptol (scaled)
+    disp(max(sqrt(sum((p-p0).^2,2))/h0));
     if max(sqrt(sum((p-p0).^2,2))/h0)<dptol, break; end
 end
