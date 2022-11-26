@@ -7,7 +7,7 @@ cylinder_size=[r,h];
 fileList=dir('..\basic\pack\pack*');
 load('tri.mat')
 p_length=size(p,2);
-for ii=2:length(fileList)
+for ii=1:length(fileList)
     Rc=load(['..\basic\pack\' fileList(ii).name '\basic.mat'],'Rc').Rc;
     Ori=load(['..\basic\pack\' fileList(ii).name '\basic.mat'],'Ori').Ori;
     %     edge=load(['..\basic\pack\' fileList(ii).name '\edge.mat'],'edge').edge;
