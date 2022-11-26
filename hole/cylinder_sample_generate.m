@@ -18,7 +18,5 @@ p=[p [x y ha]'];
 [~, I, ~] = unique(p,'first','rows');
 I = sort(I);
 p = p(I,:);
-
 plot3(p(1,:),p(2,:),p(3,:),'o')
-
 save('tri.mat','p')
