@@ -1,3 +1,4 @@
+% 生成圆柱的采样点
 d=30.75*2/0.8;
 h=4.81*2/0.8;
 r=d/2;
@@ -14,9 +15,13 @@ x=r*cos(th);x=repmat(x,h_num,1);
 y=r*sin(th);y=repmat(y,h_num,1);
 ha=sort(repmat(ha',th_num,1));
 p=[p [x y ha]'];
+x=cos(th+pi/th_num);x=x(:);
+y=sin(th+pi/th_num);y=y(:);
+p=[p [x y h/2*ones(length(x),1)]' [x y -h/2*ones(length(x),1)]'];
 
 [~, I, ~] = unique(p,'first','rows');
 I = sort(I);
 p = p(I,:);
 plot3(p(1,:),p(2,:),p(3,:),'o')
+
 save('tri.mat','p')

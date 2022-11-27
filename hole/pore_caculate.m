@@ -1,7 +1,4 @@
-% load('D:\毕个业\basic\pack\pack116\basic.mat')
-% load('D:\毕个业\basic\pack\pack116\voronoi_point.mat')
-% load('D:\毕个业\basic\pack\pack116\edge.mat')
-% 合并一个圆盘上的采样点的格子
+% 根据划分的voronoi计算孔的位置
 clear
 d=30.75*2/0.8;
 h=4.81*2/0.8;
@@ -48,5 +45,5 @@ for nn=1:length(fileList)
     % plot3(point_pore(:,1),point_pore(:,2),point_pore(:,3),'ro');
     % axis equal
 
-    parsave(['..\basic\pack\' fileList(nn).name '\point_pore.mat'],point_pore);
+    save(['..\basic\pack\' fileList(nn).name '\point_pore.mat'],'point_pore');
 end
