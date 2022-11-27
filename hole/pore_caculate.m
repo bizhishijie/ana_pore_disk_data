@@ -39,11 +39,11 @@ for nn=1:length(fileList)
     point_statistics=sortrows(point_statistics,2);
     point_pore=point_list_unique(point_statistics(point_statistics(:,2)==4,1),:);% 统计频次为4的点
 
-    % Rc=Rc';
-    % plot3(Rc(:,1),Rc(:,2),Rc(:,3),'bo');
-    % hold on
-    % plot3(point_pore(:,1),point_pore(:,2),point_pore(:,3),'ro');
-    % axis equal
+%     Rc=Rc';
+%     plot3(Rc(is_in,1),Rc(is_in,2),Rc(is_in,3),'bo');
+%     hold on
+%     plot3(point_pore(:,1),point_pore(:,2),point_pore(:,3),'ro');
+%     axis equal
 
     save(['..\basic\pack\' fileList(nn).name '\point_pore.mat'],'point_pore');
 end
