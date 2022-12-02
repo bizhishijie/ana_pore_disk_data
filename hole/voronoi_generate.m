@@ -6,7 +6,7 @@ h=4.81*2/0.8;
 r=d/2;
 cylinder_size=[r,h];
 fileList=dir('..\basic\pack\pack*');
-load('tri.mat')
+load('p.mat');p=p';
 p_length=size(p,2);
 for ii=1:length(fileList)
     Rc=load(['..\basic\pack\' fileList(ii).name '\basic.mat'],'Rc').Rc;
