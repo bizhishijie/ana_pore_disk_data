@@ -7,5 +7,5 @@ function dis=distance_point_line(point,line_p,line_forward)
 % r_0 对应 line_p
 % r_1 对应 point
 % a 对应 line_forward
- dis=sqrt(sum( (dot(line_forward,point-line_p).*line_forward-(point-line_p)).^2 ) );
+dis=sqrt(sum( (dot(line_forward,point-line_p).*line_forward-(point-line_p)).^2 ) );
 end

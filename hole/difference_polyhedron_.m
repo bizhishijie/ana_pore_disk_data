@@ -1,6 +1,6 @@
-function [V_inter,rc_inter_all] = intersects_polyhedron_(rc1,rc2)
-%% intersection between two polyhedron
-
+function [V_inter,rc_all] = difference_polyhedron_(rc1,rc2)
+%% difference between two polyhedron
+% 最终要找的点在r1的内侧，在r2的外侧
 % rc1=rand(3,10);
 % rc2=rand(3,10)+0.2;
 %%
@@ -37,8 +37,8 @@ for ii=1:size(idx_line2,1)
     end
 end
 
-%%
-rc_inter_corner=[];
+%% 判断一个点是否在r1内侧
+rc_corner=[];
 rc2_c=mean(rc2,2);
 for ii=1:size(rc1,2)
     face_side=zeros(1,size(idx_face2,1));
@@ -53,10 +53,10 @@ for ii=1:size(rc1,2)
         end
     end
     if sum(face_side==0)==0
-        rc_inter_corner=[rc_inter_corner rc1(:,ii)];
+        rc_corner=[rc_corner rc1(:,ii)];
     end
 end
-%% 判断一个点是否在内侧
+%% 判断一个点是否在r2外侧
 rc1_c=mean(rc1,2);
 for ii=1:size(rc2,2)
     face_side=zeros(1,size(idx_face1,1));
@@ -70,8 +70,8 @@ for ii=1:size(rc2,2)
             break
         end
     end
-    if sum(face_side==0)==0
-        rc_inter_corner=[rc_inter_corner rc2(:,ii)];
+    if sum(face_side==0)~=0
+        rc_corner=[rc_corner rc2(:,ii)];
     end
 end
 
@@ -79,9 +79,9 @@ end
 % plot3(rc_inter_line(1,:),rc_inter_line(2,:),rc_inter_line(3,:),'ro')
 % plot3(rc_inter_corner(1,:),rc_inter_corner(2,:),rc_inter_corner(3,:),'mo')
 
-rc_inter_all=[rc_inter_line rc_inter_corner];
-if ~isempty(rc_inter_all)
-    [~,V_inter]=convhulln(rc_inter_all');
+rc_all=[rc_inter_line rc_corner];
+if ~isempty(rc_all)
+    [~,V_inter]=convhulln(rc_all');
 else
     V_inter=0;
 end

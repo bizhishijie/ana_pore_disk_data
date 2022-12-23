@@ -1,4 +1,4 @@
-function [V,R]=cylinder_to_voronoi(Rc,Ori,p)
+function p_all=cylinder_to_point(Rc,Ori,p)
 % Rc是质心坐标
 % Ori是朝向
 % 返回的是晶胞的顶点，区域，和有效点的id
@@ -33,7 +33,6 @@ for ii=1:size(Rc,2)
     %         p_all(3,(ii-1)*length_p+1:ii*length_p),'.')
 
     %         验证旋转的正确
+
 end
-dt = delaunayTriangulation(p_all');
-[V,R] = voronoiDiagram(dt);
 end

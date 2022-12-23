@@ -5,14 +5,15 @@ h=4.81*2/0.8;
 r=d/2;
 cylinder_size=[r,h];
 fileList=dir('..\basic\pack\pack*');
-load('tri.mat')
-p_length=size(p,2);
 for nn=1:length(fileList)
     Rc=load(['..\basic\pack\' fileList(nn).name '\basic.mat'],'Rc').Rc;
     Ori=load(['..\basic\pack\' fileList(nn).name '\basic.mat'],'Ori').Ori;
     point_cell=load(['..\basic\pack\' fileList(nn).name '\voronoi_point.mat'],'point_cell').point_cell;
     edge=load(['..\basic\pack\' fileList(nn).name '\edge.mat'],'edge').edge;
+    is_in=load(['..\basic\pack\' fileList(nn).name '\rc_is_in.mat'],'is_in').is_in;
     disp(fileList(nn).name)
+    Rc=Rc(:,is_in);Ori=Ori(:,is_in);
+    point_cell=point_cell(is_in);
 
     point_list=cell2mat(cellfun(@transpose,point_cell,'UniformOutput',false));
     idx_face=convhulln(edge');
@@ -32,18 +33,26 @@ for nn=1:length(fileList)
         end
         is_in_list(ii)=(sum(face_side==0)==0);
     end
+    % 删去在外部的voronoi边界点
+
     is_in_list=find(is_in_list);
     point_list=point_list(:,is_in_list)';
     [point_list_unique,m,n]=unique(point_list,'rows');
     point_statistics=tabulate(n);
     point_statistics=sortrows(point_statistics,2);
-    point_pore=point_list_unique(point_statistics(point_statistics(:,2)==4,1),:);% 统计频次为4的点
+    point_pore=point_list_unique(point_statistics(point_statistics(:,2)==4,1),:)';% 统计频次为4的点
+    near_pore_cylinder_id=cell(1,length(point_pore));
 
-%     Rc=Rc';
-%     plot3(Rc(is_in,1),Rc(is_in,2),Rc(is_in,3),'bo');
-%     hold on
-%     plot3(point_pore(:,1),point_pore(:,2),point_pore(:,3),'ro');
-%     axis equal
-
-    save(['..\basic\pack\' fileList(nn).name '\point_pore.mat'],'point_pore');
+    parfor ii=1:length(point_pore)
+        near_pore_cylinder_id{ii}=[];
+        for jj=1:length(Rc)
+            if ismember(point_pore(:,ii)',point_cell{jj},"rows")
+                near_pore_cylinder_id{ii}(end+1)=jj;
+            end
+        end
+        near_pore_cylinder_id{ii}=near_pore_cylinder_id{ii}';
+    end% 找到距离每个孔的圆盘
+    near_pore_cylinder_id=cell2mat(near_pore_cylinder_id);
+    save(['..\basic\pack\' fileList(nn).name '\point_pore.mat'],'point_pore','near_pore_cylinder_id');
+    % 编号为通过is_in筛选后的编号
 end
