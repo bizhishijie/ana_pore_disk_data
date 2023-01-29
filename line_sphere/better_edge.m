@@ -2,7 +2,7 @@
 clear
 fileList=dir('..\basic\pack\pack*');
 d=30.75*2/0.8;
-h=4.81*2/0.8;% 由于测量不准，需要使圆柱厚一点
+h=4.81*2/0.8;
 r=d/2;
 cylinder_size=[r,h];%
 s=20*d;
@@ -18,6 +18,7 @@ parfor ff=1:length(fileList)
         end
     end
     % 删除离其他圆盘过远的孤立圆盘
+    Rc0=Rc;
     Rc(:,del_list)=[];
     disp(length(del_list));
 
@@ -67,9 +68,9 @@ parfor ff=1:length(fileList)
     saveas(gcf,['..\basic\pack\' fileList(ff).name '\edge.jpg'])
     saveas(gcf,['..\basic\pack\' fileList(ff).name '\edge.fig'])
     % 保存每个圆盘的质心是否在中间的区域
-    is_in=false(1,length(Rc));
-    for jj=1:length(Rc)
-        if inpolygon3d_new(Rc(:,jj),edge)
+    is_in=false(1,length(Rc0));
+    for jj=1:length(Rc0)
+        if ~ismember(jj,del_list) && inpolygon3d_new(Rc0(:,jj),edge)
             is_in(jj)=true;
         end
     end

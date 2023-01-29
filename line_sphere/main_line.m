@@ -16,6 +16,7 @@ for ii=1:length(fileList)
     Rc_max=max(Rc,[],2)-r;
     Rc_min=min(Rc,[],2)+r;
     Rc=Rc(:,is_in);
+    Ori=Ori(:,is_in);
     %     Rc_outside=find(any((Rc>Rc_max)|(Rc<Rc_min)));
     %     Rc(:,Rc_outside)=[];
     %     Ori(:,Rc_outside)=[];% 去除比较靠外的圆盘
@@ -57,7 +58,7 @@ for ii=1:length(fileList)
         %             plot3(cross_p_list(1,2*cross_p_close_id),cross_p_list(2,2*cross_p_close_id),cross_p_list(3,2*cross_p_close_id),'b*');
         %             plot3(cross_p_list(1,2*cross_p_close_id+1),cross_p_list(2,2*cross_p_close_id+1),cross_p_list(3,2*cross_p_close_id+1),'b*');
         %         end
-        % %         运行这一段需要Rc_cross_id_list
+        %         运行这一段需要Rc_cross_id_list
 
         cross_p_list(:,[2*cross_p_close_id 2*cross_p_close_id+1])=[];% 如果连续的
 
