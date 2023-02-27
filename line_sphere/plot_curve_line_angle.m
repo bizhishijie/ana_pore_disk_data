@@ -1,9 +1,10 @@
-clear
+clf;clear
 fileList=dir('..\basic\pack\pack*');
 load('../basic/pack_num_category.mat');
-angle_num=150;
+angle_num=20;
 angle_list=linspace(0,1,angle_num);
 for ii=1:length(pack_num_category)
+    disp(ii)
     pack_num_category_tmp=pack_num_category{ii};
     %     clf
     %     figure(ii)
@@ -22,7 +23,7 @@ for ii=1:length(pack_num_category)
     %     title(num2str(ii))
 end
 legend('1','2','3','4')
-axis([0 90 0 60])
+axis([0 90 0 30])
 box on
 saveas(gcf,'..\fig\line_pack_angle.jpg')
 saveas(gcf,'..\fig\line_pack_angle.fig')

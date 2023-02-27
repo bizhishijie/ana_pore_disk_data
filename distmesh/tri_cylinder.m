@@ -1,5 +1,5 @@
 d=30.75*2/0.8;
-h=4.81*2/0.8*0.1;
+h=4.81*2/0.8;
 r=d/2;
 h_num=2;
 hl=linspace(-h/2+h/h_num/2,h/2-h/h_num/2,h_num);
@@ -13,6 +13,6 @@ p=zeros(length(p0)*2+ sum(dis>-1)*h_num,3);
 p(1:length(p0),1:2)=p0;p(1:length(p0),3)=h/2;
 p(length(p0)+1:2*length(p0),1:2)=p0;p(length(p0)+1:2*length(p0),3)=-h/2;
 p(2*length(p0)+1:end,:)=[repmat(p0(dis>-1,:),h_num,1) sort(repmat(hl,1,sum(dis>-1)))'];
-save('..\hole_new\p.mat','p')
+save('..\hole_new\p_intersect.mat','p')
 plot3(p(:,1),p(:,2),p(:,3),'o')
 axis equal 
