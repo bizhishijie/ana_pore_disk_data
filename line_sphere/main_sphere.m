@@ -5,7 +5,7 @@ d=30.75*2/0.8;
 h=4.81*2/0.8;% 由于测量不准，需要使圆柱厚一点
 r=d/2;
 cylinder_size=[r,h];%
-rc_num=1e6;
+rc_num=1e7;
 for ii=1:length(fileList)
     rc_list=zeros(2,rc_num);
     load(['..\basic\pack\' fileList(ii).name '\basic.mat'])
@@ -51,7 +51,7 @@ for ii=1:length(fileList)
 
     end
     save(['..\basic\pack\' fileList(ii).name '\rc_list.mat'],'rc_list')
-    save(['..\basic\pack\' fileList(ii).name '\rand_point.mat'],'rand_point')
+%     save(['..\basic\pack\' fileList(ii).name '\rand_point.mat'],'rand_point')
 end
 
 % histogram(rc_list(1,:));

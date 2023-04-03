@@ -5,12 +5,13 @@ h=4.81*2/0.8;% 由于测量不准，需要使圆柱厚一点
 r=d/2;
 cylinder_size=[r,h];%
 fileList=dir('..\basic\pack\pack*');
-line_num=1e5;
+line_num=1e4;
 for ii=1:length(fileList)
     length_list=[];
     line_forward_list=[];
     load(['..\basic\pack\' fileList(ii).name '\basic.mat'])
     load(['..\basic\pack\' fileList(ii).name '\rc_is_in.mat'])
+    load(['..\basic\pack\' fileList(ii).name '\idx_wrong_disk.mat'])
     disp(fileList(ii).name)
 
     Rc_max=max(Rc,[],2)-r;
@@ -24,11 +25,10 @@ for ii=1:length(fileList)
     parfor line_id=1:line_num% 改变循环次数
         %         Rc_cross_id_list=[];
         cross_p_list=[];
-        cross_p_close_id=[];
-        while size(cross_p_list,2)<4   % 交点太少了就重新随机，只和一个圆盘相交算不了
+        while size(cross_p_list,2)<4 ||flag  % 交点太少了就重新随机，只和一个圆盘相交算不了
             line_p=rand(3,1).*(Rc_max-Rc_min)+Rc_min;
             line_forward=random_unit_vector;
-
+            flag=false;
             for jj=1:length(Rc)
                 Rc_tmp=Rc(:,jj);
                 Ori_tmp=Ori(:,jj);
@@ -36,6 +36,9 @@ for ii=1:length(fileList)
                 if ~isempty(cross_p)
                     cross_p_list=[cross_p_list [cross_p;Ori_tmp,Ori_tmp]];% 交点的列表,以及对应的圆盘的法向量
                     %                 Rc_cross_id_list=[Rc_cross_id_list jj];
+%                     if any(idx_wrong_disk==jj)
+%                         flag=true;% 如果相交的点在有问题的圆盘上面
+%                     end
                 end
             end
         end
@@ -46,8 +49,8 @@ for ii=1:length(fileList)
         cross_p_list(:,[2*cross_p_through_id 2*cross_p_through_id+1])=[];
 
         % 处理贴的过近的
-        cross_p_close_id=find(abs(sum(cross_p_list(4:6,3:2:end).*cross_p_list(4:6,2:2:end-2)))>0.995&...
-            dot(cross_p_list(1:3,3:2:end)-cross_p_list(1:3,2:2:end-2),cross_p_list(4:6,3:2:end))<h*0.05);
+        cross_p_close_id=find(abs(sum(cross_p_list(4:6,3:2:end).*cross_p_list(4:6,2:2:end-2)))>0.95&...
+            dot(cross_p_list(1:3,3:2:end)-cross_p_list(1:3,2:2:end-2),cross_p_list(4:6,3:2:end))<h*0.1);
 
         %         if ~isempty(cross_p_close_id)
         %             disp(length(cross_p_close_id))

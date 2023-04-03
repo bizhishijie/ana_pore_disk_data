@@ -1,7 +1,7 @@
 % 读取圆盘位置
 clear
 d=30.75*2/0.8;
-h=4.81*2/0.8;% 由于测量不准，需要使圆柱厚一点
+h=4.81*2/0.8;
 r=d/2;
 cylinder_size=[r,h];%
 fileList=dir('..\basic\pack\pack*');
@@ -21,7 +21,7 @@ for nn=1:15
     %% 计算每个颗粒的采样点对应的连接
     v_cell=cell(1,n);% 保存每个颗粒的元胞的边界点
     k_cell=cell(1,n);% 保存每个颗粒的元胞的边界点的连接
-    parfor pp=1:n% 改成全部粒子
+    parfor pp=1:n
         ctmp=c((pp-1)*p_length+1:p_length*pp);
         vp=cell2mat(ctmp');
         tbl=tabulate(vp);
@@ -32,7 +32,7 @@ for nn=1:15
         for ii=1:p_length
             p_id=ctmp{ii};
             P=v(p_id,:);
-            if ~any(any(isinf(P)))
+            if ~any(isinf(P),'all')
                 k=boundary(P,0);
                 k_t{ii}=p_id(k);% 转化成v的编号
             else
@@ -84,7 +84,7 @@ for nn=1:15
     %% 计算每个采样点相邻的圆盘
     co=cell(1,n);% 表示颜色
     parfor pp=1:n
-        disp(pp)
+        %         disp(pp)
         co{pp}=cell(1,length(k_cell{pp}));
         for jj=1:length(k_cell{pp})
             vk=k_cell{pp}{jj};% 这个粒子上的第jj个采样点

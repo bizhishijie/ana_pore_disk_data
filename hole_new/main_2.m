@@ -1,12 +1,12 @@
 % 读取圆盘位置
 clear
 d=30.75*2/0.8;
-h=4.81*2/0.8;% 由于测量不准，需要使圆柱厚一点
+h=4.81*2/0.8;
 r=d/2;
 cylinder_size=[r,h];%
 fileList=dir('..\basic\pack\pack*');
 load('p.mat');p=p';p_length=length(p);
-for nn=1:15
+for nn=1:30
     %% 加载数据
     disp(nn)
     load(['..\basic\pack\' fileList(nn).name '\basic.mat'])
@@ -63,6 +63,7 @@ for nn=1:15
     %% 计算孔拥有的采样点
     ks=cell(1,size(pore_rc,1));% 孔有的采样点和连接
     parfor pp=1:size(pore_rc,1)
+%         disp(pp)
         ks{pp}=[];
         for jj=1:4
             ctmp=pore_c_id(pp,jj);% cylinder
@@ -84,11 +85,17 @@ for nn=1:15
                 ks{pp}=[ks{pp};sptmp{ii}(all(ismember(k_cell{ctmp}{stmp(ii)},p_id),2),:)];
             end
         end
+        if ~isempty(ks{pp})
+            ks{pp}=sortrows(ks{pp});
+            ks{pp}=unique(ks{pp},'rows');
+            tbl=tabulate(ks{pp}(:));
+            ks{pp}(any(ismember(ks{pp},tbl(tbl(:,2)==1|tbl(:,2)==2,1)),2),:)=[];
+        end
     end
     %% 展示pore
     %     clf
-    %     pp=120;
-    %     show_pore(pore_rc(pp,:),ks{pp},v,Rc(:,pore_c_id(pp,:)),Ori(:,pore_c_id(pp,:)),pore_rc(neighbor_cell{pp},:),path_cell(pp),throat_cell{pp});
+    %     pp=1300;
+    %     show_pore(pore_rc(pp,:),ks{pp},v,Rc(:,pore_c_id{pp}),Ori(:,pore_c_id{pp}),pore_rc(neighbor_cell{pp},:),path_cell(pp),throat_cell{pp});
     %% 根据文章定义rk并合并
     % pore的属性有rk path_cell ks neighbor_cell
     %     save
@@ -132,7 +139,7 @@ for nn=1:15
                                         % 添加邻居
                                         neighbor_cell{nk}(end+1)=pp;
                                         neighbor_cell{pp}(end+1)=nk;
-
+                                        % 删除路径 删除邻居
                                         path_cell{nk}(neighbor_cell{nk}==qq)=[];
                                         neighbor_cell{nk}(neighbor_cell{nk}==qq)=[];
                                     end
@@ -144,6 +151,8 @@ for nn=1:15
                     end
                 end
             end
+            ks{pp}=sortrows(ks{pp});
+            ks{pp}=unique(ks{pp},'rows');
         end
     end
     %%
