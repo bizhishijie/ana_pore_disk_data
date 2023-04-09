@@ -17,12 +17,13 @@ function [p,t]=distmeshsurface(fd,fh,h0,bbox,varargin)
 %
 %   Example: (Uniform Mesh on Unit Sphere)
 %      fd=@(p) dsphere(p,0,0,0,1);
-%      [p,t]=distmeshsurface(fd,@huniform,0.2,1.1*[-1,-1,-1;1,1,1]);
+%      [p,t]=distmeshsurface(fd,@huniform,0.15,1.1*[-1,-1,-1;1,1,1]);
+%      save('p_sphere.mat','p')
 %
 %   Example: (Graded Mesh on Unit Sphere)
 %      fd=@(p) dsphere(p,0,0,0,1);
-%      fh=@(p) 0.05+0.5*dsphere(p,0,0,1,0);
-%      [p,t]=distmeshsurface(fd,fh,0.15,1.1*[-1,-1,-1;1,1,1]);
+%      fh=@(p) 0.5*dsphere(p,0,0,1,0);
+%      [p,t]=distmeshsurface(fd,@huniform,0.35,1.1*[-1,-1,-1;1,1,1]);
 %
 %   Example: (Uniform Mesh on Torus)
 %      fd=@(p) (sum(p.^2,2)+.8^2-.2^2).^2-4*.8^2*(p(:,1).^2+p(:,2).^2);

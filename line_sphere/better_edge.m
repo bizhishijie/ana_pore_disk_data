@@ -1,6 +1,6 @@
 % 读取圆盘位置
 clear
-fileList=dir('..\basic\pack\pack*');
+fileList=dir('../basic/data/*_plate');
 d=30.75*2/0.8;
 h=4.81*2/0.8;
 r=d/2;
@@ -9,7 +9,7 @@ s=20*d;
 rc_num=1e5;
 parfor ff=1:length(fileList)
     warning('off')
-    Rc=load(['..\basic\pack\' fileList(ff).name '\basic.mat']).Rc;
+    Rc=load(['..\basic\data\' fileList(ff).name '\basic.mat']).Rc;
     del_list=[];
     for ii=1:length(Rc)
         dis=sqrt( sum((Rc-Rc(:,ii)).^2) );
@@ -58,15 +58,15 @@ parfor ff=1:length(fileList)
             edge=edge1;
         end
     end
-    parsave(['..\basic\pack\' fileList(ff).name '\edge.mat'],edge)
+    parsave(['..\basic\data\' fileList(ff).name '\edge.mat'],edge)
     k=convhulln(edge');
     h=trisurf(k,edge(1,:),edge(2,:),edge(3,:),ones(1,size(edge,2)),'faceAlpha',0.5);
     hold on
     %     show_cylinder(Rc,Ori)
     plot3(Rc(1,:),Rc(2,:),Rc(3,:),'o')
     axis equal
-    saveas(gcf,['..\basic\pack\' fileList(ff).name '\edge.jpg'])
-    saveas(gcf,['..\basic\pack\' fileList(ff).name '\edge.fig'])
+    saveas(gcf,['..\basic\data\' fileList(ff).name '\edge.jpg'])
+    saveas(gcf,['..\basic\data\' fileList(ff).name '\edge.fig'])
     % 保存每个圆盘的质心是否在中间的区域
     is_in=false(1,length(Rc0));
     for jj=1:length(Rc0)
@@ -75,5 +75,5 @@ parfor ff=1:length(fileList)
         end
     end
 
-    parsave(['..\basic\pack\' fileList(ff).name '\rc_is_in.mat'],is_in)
+    parsave(['..\basic\data\' fileList(ff).name '\rc_is_in.mat'],is_in)
 end

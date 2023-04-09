@@ -5,8 +5,8 @@ load('../basic/pack_num_category.mat');
 clf
 hold on
 
-hist_num=50;
-hist_centre=linspace(0,500,hist_num);
+hist_num=500;max_lengh=80;
+hist_centre=linspace(0+max_lengh/hist_num/2,max_lengh-max_lengh/hist_num/2,hist_num);
 for ii=1:length(pack_num_category)
     pack_num_category_tmp=pack_num_category{ii};
     length_tmp_list=zeros(hist_num,length(pack_num_category_tmp));
@@ -19,7 +19,9 @@ for ii=1:length(pack_num_category)
         %         title(fileList(ii).name)
         length_tmp_list(:,jj)=counts;
     end
-    plot(hist_centre,mean(length_tmp_list,2));
+    tmp=mean(length_tmp_list,2);
+    tmp(end)=0;
+    plot(hist_centre,tmp/sum(tmp));
 end
 
 set(gca,'yScale','log')
