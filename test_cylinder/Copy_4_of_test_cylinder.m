@@ -10,7 +10,8 @@ cylinder_size=[r,h];
 fileList=dir('../basic/data/*_plate');
 Td_map=[2,3,4;1,3,4;1,2,4;1,2,3];
 Li_map=[1,2;1,3;1,4;2,3;2,4;3,4];
-for nn=16:30
+for nn=1:15
+    % 加载数据，计算并筛选四面体
     load(['../basic/data/' fileList(nn).name '/basic_adjust.mat']);
     disp(nn)
 
@@ -31,10 +32,11 @@ for nn=16:30
     dist_pore=zeros(length(Td),1);
     Nd_idx=cell(length(Td),1);
     Nd_tmp_id=cell(1,length(Td));
-    %%
+    %% 计算四面体内特征点
     f=@(t,line_tmp,Rc_tmp,Ori_tmp)(-min(distance_point_cylinder((t*(line_tmp(1:3)-line_tmp(4:6))+line_tmp(4:6)),Rc_tmp,Ori_tmp,cylinder_size)));
     Td_inside=false(1,length(Td));
     parfor ii=1:length(Td)
+        warning('off')
         Rc_eff_id=Td_fix(ii,:);
         tetra_tmp=cylinder_sample_point(Td(ii,:),:);% 三维的对应的是四面体
         %     plot(tri_tmp(:,1),tri_tmp(:,2),'r')
@@ -92,72 +94,23 @@ for nn=16:30
         % show_cylinder(Rc(:,unique(Rc_eff_id)),Ori(:,unique(Rc_eff_id)),'r')
         % disp(dist_pore(ii))
     end
-    %%
+
     Td=Td(~Td_inside,:);
     Td_fix=Td_fix(~Td_inside,:);
     parfor ii=1:length(Td)
-        Nd_tmp_id{ii}=find(sum(ismember(Td,Td(ii,:)),2)==3);
-    end% neighbors
-    % 计算准pore的邻居
-    % Nd_tmp_id=cellfun(@(c)find(sum(ismember(Td,c),2)==3),num2cell(Td,2),'UniformOutput',false);\
-    dist_pore_tmp=cellfun(@(c)dist_pore(c),Nd_tmp_id,'UniformOutput',false);
-    rs_pore_tmp=cellfun(@(c)rs_pore(c,:),Nd_tmp_id,'UniformOutput',false);
-    % sum(cellfun('length',Nd_tmp_id)<4);% 邻居比较少的是靠边的
-    %% 删掉一部分邻居
-    % parfor ii=1:length(Td)
-    %     Nd_tmp_loop=Nd_tmp_id{ii};
-    %     dist_pore_loop=dist_pore_tmp{ii};
-    %     rs_pore_loop=rs_pore_tmp{ii};
-    %     Td_fix_tmp=Td_fix(ii,:);
-    %     particle_num=length(unique(Td_fix_tmp));
-    %     % 找邻居的规则：
-    %     % 有三个共同的点的
-    %     % 验证彼此的中心在彼此的球内部
-    %     if particle_num==4||particle_num==3% 如果是在4个颗粒中间的，邻居也是4个的话判断互相在对方球心内
-    %         dist_points=vecnorm(rs_pore(ii,:)-rs_pore_loop,2,2);
-    %         flag1=dist_points<dist_pore(ii)&dist_points<dist_pore_loop;
-    %         flag2=cellfun(@(c)length(unique(c))~=4,num2cell(Td_fix(Nd_tmp_loop,:),2));
-    %         flag3=all(sort(Td_fix_tmp)==sort(Td_fix(Nd_tmp_loop,:),2),2);% 检查是否完全一致
-    %         Nd_idx{ii}=Nd_tmp_loop(flag1|flag2|flag3);
-    %         %     elseif particle_num==3
-    %
-    %     elseif particle_num==2
-    %         if sum((Td_fix_tmp-Td_fix_tmp(1))==0)==2% 2+2的模式
-    %             Nd_idx{ii}=Nd_tmp_loop;
-    %         else
-    %             flag1=sum(Td_fix(Nd_tmp_loop,:)-mode(Td_fix_tmp)==0,2)~=3;
-    %             flag2=all(ismember(Td_fix(Nd_tmp_loop,:),Td_fix_tmp),2);
-    %             Nd_idx{ii}=Nd_tmp_loop(flag1|flag2);
-    %         end
-    %     else % 只由一个颗粒所定义，只在部分堆积外部中具有，计算精度问题
-    %         %         disp(ii)
-    %         Nd_idx{ii}=Nd_tmp_loop;
-    %         %         Nd_idx{ii}=[];
-    %     end
-    %     %     if isempty(Nd_idx{ii})
-    %     %         disp(1)
-    %     %     end
-    % end
-    % plot(cellfun('length',Nd_idx))
-    % axis([0 1 0 1])
-    % figure(2)
-    % clf
-    % hold on
-    % edge_pore=[min(line_sample_point,[],1);max(line_sample_point,[],1)];
-    % edge_rate=0.1;
-    % edge_pore=[edge_pore(:,1)+(edge_pore(:,2)-edge_pore(:,1))*edge_rate edge_pore(:,2)-(edge_pore(:,2)-edge_pore(:,1))*edge_rate];
-    % pore_inside=find(all(rs_pore>edge_pore(1,:)&rs_pore<edge_pore(2,:),2));
-    % plot(line_pore(:,[1,3]),line_pore(:,[2,4]),'g')
+        Nd_tmp_id{ii}=find(sum(ismember(Td,Td(ii,:)),2)==3)';
+    end
     %% 第一次合并
-    Nd_idx=Nd_tmp_id;Nd_idx=cellfun(@(c)transpose(c),Nd_idx,'UniformOutput',false);
     IDX_merge=cell(length(Td),1);
-    dist_pore_tmp2=cellfun(@(c)dist_pore(c),Nd_idx,'UniformOutput',false);
-    Td_pore_tmp2=cellfun(@(c)dist_pore(c),Nd_idx,'UniformOutput',false);
+    dist_pore_tmp2=cellfun(@(c)dist_pore(c),Nd_tmp_id,'UniformOutput',false);
     parfor ii=1:size(Td,1)
-        n_idx0=Nd_idx{ii}';
+        n_idx0=Nd_tmp_id{ii}';
         dist_tmp=dist_pore_tmp2{ii};
-        n_idx1=n_idx0(dist_tmp==max(dist_tmp)&dist_tmp>dist_pore(ii));% 和最大的合并
-        n_idx2=n_idx0(length(unique(Td_fix(ii,:)))>2&all(sort(Td_fix(ii,:))==sort(Td_fix(n_idx0,:),2),2));% 和完全相同的颗粒接触且是pore，直接合并
+        n_idx1=n_idx0(dist_tmp==max(dist_tmp));% 和最大的合并
+        if length(n_idx1)>1
+            n_idx1=n_idx1(1);
+        end
+        n_idx2=n_idx0(length(unique(Td_fix(ii,:)))>3&all(sort(Td_fix(ii,:))==sort(Td_fix(n_idx0,:),2),2));% 和完全相同的颗粒接触且是pore，直接合并
         IDX_merge{ii}=unique([n_idx1;n_idx2;ii]);
     end% 每个三角形合并的三角形的id
     IDX_merge1 = cell_combine_(IDX_merge);
@@ -170,22 +123,28 @@ for nn=16:30
         idx_tmp=repelem(idx_tmp,cellfun('length',IDX_merge2));
         IDX_convert(cell2mat(IDX_merge2))=idx_tmp;% 每个四面体中心merge到的编号
         IDX_merge_pore=cell(1,length(IDX_merge2));
-        for ii=1:length(IDX_merge2)% 第二次合并
+        parfor ii=1:length(IDX_merge2)% 第二次合并
             IDX_merge2_tmp=IDX_merge2{ii};
-            merge_particle=unique(Td_fix(IDX_merge2_tmp,:));% 这个pore对应的颗
-            pore_neighbor=setdiff(unique(cell2mat(Nd_idx(IDX_merge2_tmp))),IDX_merge2_tmp);% pore的邻居
+            merge_particle=unique(Td_fix(IDX_merge2_tmp,:));% 这个pore对应的颗粒
+            pore_neighbor=setdiff(unique(cell2mat(Nd_tmp_id(IDX_merge2_tmp))),IDX_merge2_tmp);% pore的邻居
             merge_neighbor=IDX_convert(pore_neighbor);% merge的邻居
-            %     cellfun(@(c)unique(Td_fix(IDX_merge2{c})),num2cell(merge_neighbor),'UniformOutput',false);
-            %     merge_neighbor_particle=cellfun(@(c)unique(c),num2cell(Td_fix(merge_neighbor,:),2),'UniformOutput',false);
             merge_neighbor_particle=cellfun(@(c)unique(Td_fix(c,:)),IDX_merge2(merge_neighbor),'UniformOutput',false);
-            is_neighbor=cellfun(@(c)all(ismember(merge_particle,c)),merge_neighbor_particle);
+            is_neighbor=cellfun(@(c)all(ismember(merge_particle,c)),merge_neighbor_particle);% 不能带来新的颗粒邻居
             %     any(is_neighbor),length(merge_particle)
             pore_neighbor=pore_neighbor(is_neighbor);
             merge_neighbor=merge_neighbor(is_neighbor);
-            [~,max_idx]=max(dist_pore(pore_neighbor));
-            IDX_merge_pore{ii}=[merge_neighbor(max_idx),ii];
+
+            [c,~,ic]=unique(merge_neighbor);
+
+            neighbor_dist=dist_pore(pore_neighbor);
+            merge2_dist=zeros(1,length(c));
+            for jj=1:length(c)
+                merge2_dist(jj)=min(neighbor_dist(jj==ic));
+            end
+            [~,max_idx]=max(merge2_dist);
+            IDX_merge_pore{ii}=[c(max_idx),ii];
         end
-    	flag=any(cellfun('length',IDX_merge_pore)>1);
+        flag=any(cellfun('length',IDX_merge_pore)>1);
         IDX_merge_pore_1 = cell_combine_(IDX_merge_pore);
         IDX_merge2=cellfun(@(c)cell2mat(IDX_merge2(c)),IDX_merge_pore_1,'UniformOutput',false);
     end
@@ -202,7 +161,7 @@ for nn=16:30
     % IDX_merge2 Td_fix Td cylinder_sample_point
     % save(['../basic/pack/' fileList(nn).name '/pore.mat'],'IDX_merge2','Td_fix','Td','Cv','cylinder_sample_point')
     for ii=1:length(IDX_merge2)
-        %% 划分网格
+        %% 划分网格 判断点是否该合并
         % disp(ii)
         idx_tetra=IDX_merge2{ii};
         idx_dcell=Td(idx_tetra,:);
