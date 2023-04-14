@@ -21,4 +21,4 @@ for jj=1:length(pore_near)
 
     show_cylinder(Rc(:,idx_dcell),Ori(:,idx_dcell),'r')
     plot3(rc_g(1,:),rc_g(2,:),rc_g(3,:),'.','Color',rand(1,3))
-end
+end 

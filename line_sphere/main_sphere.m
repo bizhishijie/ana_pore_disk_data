@@ -1,15 +1,20 @@
 % 读取圆盘位置
 clear
-fileList=dir('..\basic\pack\pack*');
+fileList=dir('../basic/data/*_plate');
 d=30.75*2/0.8;
 h=4.81*2/0.8;% 由于测量不准，需要使圆柱厚一点
 r=d/2;
 cylinder_size=[r,h];%
-rc_num=1e7;
+rc_num=1e6;
 for ii=1:length(fileList)
     rc_list=zeros(2,rc_num);
-    load(['..\basic\pack\' fileList(ii).name '\basic.mat'])
-    load(['..\basic\pack\' fileList(ii).name '\edge.mat'])
+    load(['../basic/data/' fileList(ii).name '/basic_adjust.mat'])
+    load(['../basic/data/' fileList(ii).name '/edge.mat'])
+
+    idx_keep=setxor(1:size(Rc,2),idx_remove);
+    Rc=[Rc(:,idx_keep) Rc_add];
+    Ori=[Ori(:,idx_keep) Ori_add];
+
     disp(fileList(ii).name)
     rand_point=zeros(3,rc_num);
 
@@ -50,8 +55,8 @@ for ii=1:length(fileList)
         %         axis equal
 
     end
-    save(['..\basic\pack\' fileList(ii).name '\rc_list.mat'],'rc_list')
-%     save(['..\basic\pack\' fileList(ii).name '\rand_point.mat'],'rand_point')
+    save(['../basic/data/' fileList(ii).name '/rc_list.mat'],'rc_list')
+    %     save(['../basic/pack/' fileList(ii).name '/rand_point.mat'],'rand_point')
 end
 
 % histogram(rc_list(1,:));
